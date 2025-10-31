@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Optional: uncomment if you use Netlify Functions
+# functions = "netlify/functions"
+
+# If your site will be served from a subpath, set `base` in vite config instead.
