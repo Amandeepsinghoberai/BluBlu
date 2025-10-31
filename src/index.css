@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens (dark default, light via media override) */
+:root {
+  /* Core (per requested palette) */
+  --bg: #0D0D0D;          /* deep black */
+  --bg-elev: #001F3D;     /* dark navy */
+  --card: #0F1F33;        /* navy card */
+  --border: #18314F;      /* navy border */
+  --text: #FFFFFF;        /* primary text */
+  --text-2: #B3D7FF;      /* headline/light primary */
+  --text-3: #B0B0B0;      /* secondary */
+
+  /* Brand / Interactive */
+  --primary: #0073E6;     /* button base */
+  --primary-hover: #00B3E6;/* hover */
+  --primary-active: #005BB5;/* active */
+  --icon-primary: #00B3E6; /* icons */
+  --icon-accent: #FFA500; /* attention icons */
+
+  /* Feedback */
+  --success: #28A745;
+  --warning: #FF6F00;
+  --danger: #EF4444;
+  --info: #00B3E6;
+
+  /* Chips (light on dark) */
+  --chip-pending-bg: #FFDD00; --chip-pending-text: #3B2F00; --chip-pending-border: #E6C800;
+  --chip-success-bg: #DFF7E7; --chip-success-text: #0F5132; --chip-success-border: #A7E3BF;
+  --chip-danger-bg: #FEE2E2; --chip-danger-text: #7F1D1D; --chip-danger-border: #FCA5A5;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #F8FAFC;
+    --bg-elev: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #E5E7EB;
+    --text: #0D0D0D;
+    --text-2: #001F3D;
+    --text-3: #4B5563;
+  }
+}
+
+@layer base {
+  html, body {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  /* Default form look */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea, select {
+    background-color: var(--bg-elev);
+    color: var(--text);
+    border-color: var(--border);
+  }
+
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-hover), 0 0 0 4px color-mix(in oklab, var(--primary) 60%, transparent);
+    border-color: var(--primary);
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: #0B1220;
+  }
+}
+
+/* Practical overrides for existing Tailwind utility combinations */
+/* Primary gradient buttons previously using from-blue-600 to-cyan-400 */
+[class*="from-blue-600"][class*="to-cyan-400"] {
+  background-image: linear-gradient(90deg, var(--primary), var(--primary-hover)) !important;
+  color: #FFFFFF !important;
+}
+
+/* Generic blue button backgrounds */
+[class~="bg-blue-600"],
+[class~="bg-blue-700"],
+[class~="bg-sky-600"],
+[class~="bg-cyan-500"] {
+  background-color: var(--primary) !important;
+  color: #FFFFFF !important;
+}
+[class~="hover:bg-sky-500"],
+[class~="hover:bg-blue-600"],
+[class~="hover:bg-blue-700"]:hover {
+  background-color: var(--primary-hover) !important;
+}
+
+/* Secondary text override */
+[class~="text-slate-400"],
+[class~="text-gray-400"] { color: var(--text-3) !important; }
+
+/* Icon tint helper */
+svg.icon-primary { color: var(--icon-primary); }
+svg.icon-accent { color: var(--icon-accent); }
